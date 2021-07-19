@@ -17,7 +17,11 @@
         </mat-grid-tile>
     </mat-grid-list>
     
-    <mat-paginator *ngIf="gifResults.length > 0" [length]="gifResults.length" [pageSize]="pageSize" (page)="currentPage = $event.pageIndex">
+    <mat-paginator
+        [pageSize]="pageSize"
+        [length]="gifResults?.length"
+        *ngIf="!!gifResults && gifResults.length > 0"
+        (page)="currentPage = $event.pageIndex">
     </mat-paginator>
 </div> 
 <div mat-dialog-actions>

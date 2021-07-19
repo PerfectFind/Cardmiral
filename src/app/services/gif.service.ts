@@ -15,8 +15,8 @@ export const EMPTY_GIF: GifObject = {
 export class GifService {
     constructor(private http: HttpClient) { }
     
-    private trendUrl: string = "http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC";
-    private searchUrl: string = "http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=";
+    private trendUrl: string = "http://api.giphy.com/v1/gifs/trending?api_key=uXsep2HN1kO9SnGq93kAK0jyJTpoRd6V";
+    private searchUrl: string = "http://api.giphy.com/v1/gifs/search?api_key=uXsep2HN1kO9SnGq93kAK0jyJTpoRd6V&q=";
 
     public trendingGifs() {
         let url = new HttpRequest("GET", this.trendUrl);

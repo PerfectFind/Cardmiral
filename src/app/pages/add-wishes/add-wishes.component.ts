@@ -21,6 +21,8 @@ export class AddWishesComponent implements OnInit {
   selectedGif: GifObject = EMPTY_GIF;
   selectedIndex: number = 0;
 
+  fontStyles = ["Roboto", "Helvetica Neue", "sans-serif"];
+
   constructor(
     private route: ActivatedRoute,
     public cardsService: CardsService,
@@ -36,10 +38,7 @@ export class AddWishesComponent implements OnInit {
   openDialog() {
     this.dialog
       .open(GifSearchComponent, { data: this.selectedGif })
-      .afterClosed().subscribe(result => {
-        this.selectedGif = result;
-        this.addGifMessage();
-      });
+      .afterClosed().subscribe(result => this.selectedGif = result);
   }
 
   getCard() {
@@ -59,22 +58,18 @@ export class AddWishesComponent implements OnInit {
 
   updatePosition(newPosition: Position) {
     this.selectedMessage.position = newPosition;
-    this.selectedCard.messages[this.selectedIndex].position = newPosition;
   }
 
-  addGifMessage() {
-    let newMessage = { ...this.selectedMessage, message: '', url: this.selectedGif.images.fixed_height.url };
-    this.selectedCard.messages[this.selectedIndex] = newMessage;
-
-  }
-
-  addTextMessage() {
-    let newMessage = { ...this.selectedMessage, url: '' };
-    console.log(newMessage.position);
+  addMessage() {
+    let newMessage = { 
+      ...this.selectedMessage,
+      enabled: true,
+      url: this.selectedGif?.images.fixed_height.url || ''
+    };
     this.selectedCard.messages[this.selectedIndex] = newMessage;
   }
 
-  onSubmit() {
+  saveMessage() {
     this.cardsService.addMessage(this.cardId, this.selectedCard.messages)
       .then(() => this.reset());
   }

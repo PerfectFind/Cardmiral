@@ -9,12 +9,16 @@ import { DragDropModule } from '@angular/cdk/drag-drop'
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Material UI
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input'
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 // Custom Pages
 import { AppComponent } from './app.component';
@@ -69,11 +73,15 @@ const IMPORTS = [
   FlexLayoutModule,
   HttpClientModule,
 
+  MatButtonToggleModule,
   MatCardModule,
   MatDialogModule,
+  MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
+  MatInputModule,
   MatPaginatorModule,
+  MatSelectModule,
   MatToolbarModule,
 
   AngularFireModule.initializeApp(config),

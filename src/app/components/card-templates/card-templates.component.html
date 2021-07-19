@@ -16,13 +16,11 @@
             style='font-family: {{ message.fontStyle }}; position: absolute; top: 0px; left: 0px;
             transform: translate3d({{ message.position.x }}px, {{ message.position.y }}px, 0px);'
             *ngFor="let message of card.messages | slice: page : page + pageSize; index as j"
-            cdkDrag cdkDragBoundary=".custom-comments" (cdkDragEnded)="updatePosition($event, i, j)" >
+            cdkDrag [cdkDragDisabled]="!message.enabled" cdkDragBoundary=".custom-comments" (cdkDragEnded)="updatePosition($event, i, j)" >
             <div *ngIf="message.url !== undefined && message.url !== ''">
               <img [src]="message.url">
             </div>
-            <div *ngIf="message.url === undefined || message.url === ''">
-              <div class="custom-content">{{ message.message }}</div>
-            </div>
+            <div class="custom-content">{{ message.message }}</div>
             <div class="custom-footer">{{ message.signature }}</div>
         </mat-card>
       </div>
