@@ -22,7 +22,6 @@ export class GifSearchComponent implements OnInit {
   ngOnInit() {
     this.gifService.trendingGifs()
       .subscribe((res: any) => {
-        console.log(res?.body?.data);
         this.gifResults = res?.body?.data;
       })
   }
@@ -30,7 +29,6 @@ export class GifSearchComponent implements OnInit {
   performSearch(searchTerm: string) {
     this.gifService.searchGifs(searchTerm)
       .subscribe((res: any)  => {
-        console.log(res?.body?.data);
         this.gifResults = res?.body?.data;
       })
   }

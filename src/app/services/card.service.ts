@@ -45,9 +45,9 @@ export class CardsService {
     return this.db.collection(COLLECTION_NAME).doc(cardId).snapshotChanges();
   }
 
-  addMessage(cardId: string, currentCard: Card, newMessage: Message) {
+  addMessage(cardId: string, newMessages: Message[]) {
     return this.db.collection(COLLECTION_NAME).doc(cardId).set(
-      { messages: currentCard.messages.concat(newMessage)}, {merge: true}
+      { messages: newMessages}, {merge: true}
     )
   }
 }

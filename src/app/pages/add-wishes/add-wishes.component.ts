@@ -7,6 +7,7 @@ import { Message } from 'src/app/models/message.model';
 import { GifSearchComponent } from 'src/app/components/gif-search/gif-search.component';
 import { GifObject } from 'src/app/models/gif.model';
 import { EMPTY_GIF } from 'src/app/services/gif.service';
+import { Position } from 'src/app/models/position.model';
 
 @Component({
   selector: 'app-add-wishes',
@@ -16,41 +17,65 @@ import { EMPTY_GIF } from 'src/app/services/gif.service';
 export class AddWishesComponent implements OnInit {
   cardId: string = '';
   selectedCard: Card = EMPTY_CARD;
-  message: Message = EMPTY_MESSAGE;
+  selectedMessage: Message = EMPTY_MESSAGE;
   selectedGif: GifObject = EMPTY_GIF;
+  selectedIndex: number = 0;
+
   constructor(
     private route: ActivatedRoute,
     public cardsService: CardsService,
     public dialog: MatDialog) {
     this.selectedCard.type = 'bday1';
   }
+  
   ngOnInit() {
     this.cardId = this.route.snapshot.paramMap.get('id') || '';
     this.getCard();
   }
+
   openDialog() {
     this.dialog
       .open(GifSearchComponent, { data: this.selectedGif })
       .afterClosed().subscribe(result => {
-        console.log(result);
         this.selectedGif = result;
-        this.message.url = result.images.fixed_height.url;
+        this.addGifMessage();
       });
   }
+
   getCard() {
-    this.selectedCard = TEST_CARD;
-    // this.cardsService.retrieveCard(this.cardId)
-    //   .subscribe(res => {
-    //     this.selectedCard = res.payload.data() as Card;
-    //   });
+    // this.selectedCard = TEST_CARD;
+    // this.selectedIndex = Math.abs(TEST_CARD.messages.length);
+    this.cardsService.retrieveCard(this.cardId)
+      .subscribe(res => {
+        this.selectedCard = res.payload.data() as Card;
+        this.selectedIndex = this.selectedCard.messages.length ;
+      });
   }
+
   reset() {
-    this.message = EMPTY_MESSAGE;
+    this.selectedMessage = EMPTY_MESSAGE;
     this.selectedGif = EMPTY_GIF;
   }
+
+  updatePosition(newPosition: Position) {
+    this.selectedMessage.position = newPosition;
+    this.selectedCard.messages[this.selectedIndex].position = newPosition;
+  }
+
+  addGifMessage() {
+    let newMessage = { ...this.selectedMessage, message: '', url: this.selectedGif.images.fixed_height.url };
+    this.selectedCard.messages[this.selectedIndex] = newMessage;
+
+  }
+
+  addTextMessage() {
+    let newMessage = { ...this.selectedMessage, url: '' };
+    console.log(newMessage.position);
+    this.selectedCard.messages[this.selectedIndex] = newMessage;
+  }
+
   onSubmit() {
-    console.log(this.selectedCard.messages.push(this.message));
-    this.cardsService.addMessage(this.cardId, this.selectedCard, this.message)
+    this.cardsService.addMessage(this.cardId, this.selectedCard.messages)
       .then(() => this.reset());
   }
 }

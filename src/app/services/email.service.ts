@@ -28,7 +28,6 @@ export class EmailService {
       minute: card.scheduledTime?.minute.toString() || '',
       cardUrl: 'http://localhost:4200/view-card/' + card.id
     }
-    console.log(cardData);
 
     return this.http.post<RequestBody>(this.emailUrl, cardData, {headers:{ "content-type": 'application/json'}});
   }
