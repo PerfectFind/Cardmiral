@@ -1,0 +1,20 @@
+.gifThumbnail {
+    margin: 5px;
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    &:hover {
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 0px 4px #94c8ff;
+    }
+}
+
+.selected {
+    box-shadow: 0px 0px 4px #007bff;
+}
+
+.custom-gif {
+    width: 100%;
+    height: 100%;
+}

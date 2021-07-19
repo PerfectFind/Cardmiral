@@ -1,0 +1,23 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.custom-card {
+    margin: 25px;
+    &:hover {
+        box-shadow: 2px 12px 30px darkgrey;
+       -webkit-transition:  box-shadow .3s ease-in;
+    }
+}
+
+.fixed-size {
+    height: 600px;
+    width: 450px;
+    cursor: pointer;
+}
+
+.app-card {
+    width:440px;
+    height:440px;
+    cursor: pointer;
+}

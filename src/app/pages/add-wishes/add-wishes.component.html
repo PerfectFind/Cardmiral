@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="inner-container">
+        <app-card-templates [card]="selectedCard">
+        </app-card-templates>
+    </div>
+    <form class="inner-container" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea
+                id="message" name="message"
+                type="text" class="form-control" rows="5"
+                [(ngModel)]="message.message" required>
+            </textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="signature">Signature</label>
+            <input
+                id="signature" name="signature"
+                type="text" class="form-control"
+                [(ngModel)]="message.signature" required>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-outline-primary btn-space" type="button" (click)="openDialog()">
+                Add GIF
+            </button>
+            <button class="btn btn-outline-primary btn-space" type="button" (click)="onSubmit()">
+                Add Message
+            </button>
+        </div>
+    </form>
+</div>

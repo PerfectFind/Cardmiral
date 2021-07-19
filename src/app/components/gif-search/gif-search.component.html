@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Choose a GIF</h1>
+<div mat-dialog-content>
+    <div class="form-group">
+        <div class="input-group">
+            <input name="search" class="form-control" #searchTerm>
+            <div class="input-group-append">
+                <button class="btn btn-primary" (click)="performSearch(searchTerm.value)">Search</button>
+            </div>
+        </div>
+    </div>
+    
+    <mat-grid-list cols="3" rowHeight="150px" >
+        <mat-grid-tile
+            (click)="selectedIndex = i" [ngClass]="i === selectedIndex ? 'selected' : ''"
+            *ngFor="let result of gifResults | slice: pageSize * currentPage : pageSize * (currentPage + 1); index as i">
+            <img class="custom-gif" [src]="result.images.fixed_height.url">
+        </mat-grid-tile>
+    </mat-grid-list>
+    
+    <mat-paginator *ngIf="gifResults.length > 0" [length]="gifResults.length" [pageSize]="pageSize" (page)="currentPage = $event.pageIndex">
+    </mat-paginator>
+</div> 
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="gifResults[selectedIndex]" class="btn btn-primary">
+        Add
+    </button>
+</div>

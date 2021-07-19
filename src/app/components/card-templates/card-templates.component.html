@@ -1,0 +1,31 @@
+<ngb-carousel #carousel *ngIf="card" [wrap]="false" [interval]="200000" class="fixed-size-container">
+  <ng-template ngbSlide>
+    <div class="custom-carousel-page">
+      <div class="custom-cover">
+        <img src="assets/{{card.type}}.png" alt="{{card.type}}" class="fixed-size">
+      </div>
+    </div>
+  </ng-template>
+  <ng-template ngbSlide *ngFor="let page of pagination | slice: 0 : getPages(); index as i">
+    <div class="custom-carousel-page"> 
+      <div class="custom-cover custom-opacity">
+        <img src="assets/{{card.type}}.png" alt="{{card.type}}" class="fixed-size">
+      </div>
+      <div class="custom-comments fixed-size" *ngIf="card.messages.length > page">
+        <mat-card class="custom-card"
+            style='font-family: {{ message.fontStyle }}; position: absolute; top: 0px; left: 0px;
+            transform: translate3d({{ message.position.x }}px, {{ message.position.y }}px, 0px);'
+            *ngFor="let message of card.messages | slice: page : page + pageSize; index as j"
+            cdkDrag cdkDragBoundary=".custom-comments" (cdkDragEnded)="updatePosition($event, i, j)" >
+            <div *ngIf="message.url !== undefined && message.url !== ''">
+              <img [src]="message.url">
+            </div>
+            <div *ngIf="message.url === undefined || message.url === ''">
+              <div class="custom-content">{{ message.message }}</div>
+              <div class="custom-footer">{{ message.signature }}</div>
+            </div>
+        </mat-card>
+      </div>
+    </div>
+  </ng-template>
+</ngb-carousel>
