@@ -70,6 +70,9 @@ export class AddWishesComponent implements OnInit {
   }
 
   saveMessage() {
+    this.selectedCard.messages.forEach((msg) => {
+      msg.enabled = false;
+    })
     this.cardsService.addMessage(this.cardId, this.selectedCard.messages)
       .then(() => this.reset());
   }

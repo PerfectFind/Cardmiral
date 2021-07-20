@@ -10,7 +10,7 @@ import { GifService } from 'src/app/services/gif.service';
 })
 export class GifSearchComponent implements OnInit {
   gifResults: GifObject[] = [];
-  selectedIndex: number = 0;
+  selectedIndex: number = -1;
   currentPage: number = 0;
   pageSize: number = 12;
 

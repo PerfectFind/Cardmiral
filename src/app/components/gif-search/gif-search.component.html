@@ -9,11 +9,16 @@
         </div>
     </div>
     
-    <mat-grid-list cols="3" rowHeight="150px" >
-        <mat-grid-tile
-            (click)="selectedIndex = i" [ngClass]="i === selectedIndex ? 'selected' : ''"
+    <mat-grid-list cols="3" rowHeight="150px" class="gridList">
+        <mat-grid-tile (click)="selectedIndex = -1" >
+            <div class="custom-gif" [ngClass]="-1 === selectedIndex ? 'selected' : ''"></div>
+        </mat-grid-tile>
+        <mat-grid-tile (click)="selectedIndex = i" 
             *ngFor="let result of gifResults | slice: pageSize * currentPage : pageSize * (currentPage + 1); index as i">
-            <img class="custom-gif" [src]="result.images.fixed_height.url">
+            <img
+                class="custom-gif"
+                [src]="result.images.fixed_height.url"
+                [ngClass]="i === selectedIndex ? 'selected' : ''">
         </mat-grid-tile>
     </mat-grid-list>
     
@@ -25,7 +30,10 @@
     </mat-paginator>
 </div> 
 <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="gifResults[selectedIndex]" class="btn btn-primary">
-        Add
+    <button mat-button [mat-dialog-close]="null" class="btn btn-secondary btn-space">
+        Close
+    </button>
+    <button mat-button [mat-dialog-close]="gifResults[selectedIndex]" class="btn btn-primary btn-space">
+        Select GIF
     </button>
 </div>
